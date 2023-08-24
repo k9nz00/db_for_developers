@@ -1,0 +1,9 @@
+### IntelliJ IDEA ###
+.idea/*
+*.ipr
+*.iml
+*.iws
+*.log
+**/bin
+.project
+.settings
