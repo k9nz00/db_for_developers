@@ -5,6 +5,7 @@ services:
   # Use root/root as user/password credentials
   mysql:
     container_name: "skillbox-mysql"
+    restart: on-failure
     image: mysql:8.1.0
     command: [
       "--default-authentication-plugin=mysql_native_password"
