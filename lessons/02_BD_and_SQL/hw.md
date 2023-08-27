@@ -106,8 +106,8 @@ WHERE approve_required IS TRUE;
 ```sql
 SELECT *
 FROM skillboxdb.discussion_group
-WHERE creation_time >= '2018-01-01'
-ORDER BY creation_time
+WHERE YEAR(creation_time) = 2018
+ORDER BY creation_time;
 ```
 
 ### Ответ к заданию 5
