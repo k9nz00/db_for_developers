@@ -24,7 +24,7 @@ FROM skillboxdb.user;
 
 Ответ
 ```sql
-SELECT COUNT(approved)    AS approved_cnt,
+SELECT SUM(approved)      AS approved_cnt,
        MIN(joined_time)   AS oldest_join,
        MAX(approved_time) AS recent_approve
 FROM skillboxdb.users_to_discussion_groups;
