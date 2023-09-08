@@ -38,9 +38,9 @@ SELECT group_id,
        (SELECT COUNT(post_id)
         FROM user_group_post
         WHERE user_group_post.group_id = discussion_group.group_id
-          AND admin_user_id = user_id)                                                       AS admin_group_post_count
+          AND admin_user_id = user_id)                                            AS admin_group_post_count
 FROM skillboxdb.discussion_group
-WHERE EXISTS(SELECT 1 FROM skillboxdb.user_private_message WHERE user_to_id = admin_user_id)
+WHERE EXISTS(SELECT 1 FROM skillboxdb.user_private_message WHERE user_from_id = admin_user_id)
 ORDER BY (SELECT login FROM user WHERE user_id = discussion_group.admin_user_id);
 ```
 
