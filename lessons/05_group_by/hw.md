@@ -12,7 +12,7 @@ SELECT post_type,
        DATEDIFF(MAX(creation_time), MIN(creation_time)) AS diff_count_days
 FROM skillboxdb.user_group_post
 GROUP BY post_type
-ORDER BY post_type_count;
+ORDER BY diff_count_days DESC;
 ```
 
 ### Задание 2
@@ -27,13 +27,10 @@ ORDER BY post_type_count;
 
 ```sql
 SELECT registration_type,
-       registration_time,
        COUNT(1) AS active_user_count
-FROM skillboxdb.user
-WHERE is_active IS TRUE
-GROUP BY registration_type, registration_time
-HAVING registration_time > '2018-06-01'
-ORDER BY active_user_count DESC, registration_time
+FROM (SELECT registration_type FROM user WHERE is_active IS TRUE AND registration_time > '2018-06-01') AS t
+GROUP BY registration_type
+ORDER BY active_user_count DESC
 LIMIT 1;
 ```
 
@@ -45,14 +42,14 @@ LIMIT 1;
 Ответ
 
 ```sql
-SELECT DISTINCT send_time
-FROM (SELECT DATE(send_time),
-             send_time,
-             COUNT(1) AS count_sended_message
-      FROM skillboxdb.user_private_message
-      GROUP BY user_from_id, send_time, DATE(send_time)) AS t
-WHERE count_sended_message = 1
-ORDER BY send_time;
+WITH not_valid_days AS (SELECT DATE(send_time) AS send_time_date, COUNT(message_id) AS cnt
+                        FROM user_private_message
+                        GROUP BY user_from_id, send_time_date
+                        HAVING cnt > 1)
+SELECT DISTINCT DATE(send_time) AS unique_day
+FROM user_private_message
+WHERE DATE(send_time) NOT IN (SELECT send_time_date FROM not_valid_days)
+ORDER BY unique_day
 ```
 
 ### Задание 4
