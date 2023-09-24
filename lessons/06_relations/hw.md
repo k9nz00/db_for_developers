@@ -11,9 +11,9 @@
 
 Ответы
 
-1. 1:1
+1. 1:Many
 2. Many:Many
-3. 1:Many
+3. 1:1
 
 ### Задание 2
 
@@ -112,6 +112,5 @@ SELECT login, COUNT(1) AS cnt
 FROM user u
          INNER JOIN user_private_message upm ON u.user_id = upm.user_from_id
 GROUP BY u.user_id
-HAVING cnt > 1
 ORDER BY cnt DESC;
 ```
