@@ -8,4 +8,8 @@ public interface UserDao {
     void saveUser(UserEntity user);
 
     Collection<UserEntity> getUsers();
+
+    UserEntity getUser(int userId);
+
+    void activateUser(int userId);
 }

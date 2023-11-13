@@ -2,12 +2,14 @@ package com.semka.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.sql.Date;
 
 @Entity
 @Table(name = "user", schema = "skillboxdb")
 @Data
+@ToString
 public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
