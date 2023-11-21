@@ -17,3 +17,10 @@ services:
       MYSQL_USER: skillbox
       MYSQL_PASSWORD: skillbox
       MYSQL_DATABASE: skillboxdb
+
+  redis:
+    container_name: "skillbox-redis"
+    image: redis:7.2.3
+    restart: on-failure
+    ports:
+      - '6379:6379'
