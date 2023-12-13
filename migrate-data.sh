@@ -2,7 +2,7 @@
 
 #start all services for course
 docker-compose -f "$(pwd)"/skillbox_db_env/docker-compose.yaml up -d
-for i in {1..25}
+for i in {1..10}
 do
   mysqlIsAvailable="$(docker logs skillbox-mysql 2>&1 | grep 'CA certificate ca.pem is self signed'.)"
   if [ "$mysqlIsAvailable" ]; then
@@ -15,3 +15,6 @@ do
     echo "Attempt $i. Waiting start mysql container ..."
     sleep 2;
 done
+
+docker exec -i skillbox_db_env-mongo-1 mongoimport --legacy --db skillbox --collection posts --file /tmp/migration_data/posts.json
+docker exec -i skillbox_db_env-mongo-1 mongoimport --legacy --db skillbox --collection users --file /tmp/migration_data/users.json
